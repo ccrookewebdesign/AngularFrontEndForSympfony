@@ -2,6 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Md5 } from 'ts-md5/dist/md5'
 
+import {Observable} from 'rxjs';
+import { 
+  catchError,
+  map,
+  tap,
+  startWith,
+  switchMap,
+  debounceTime,
+  distinctUntilChanged,
+  takeWhile,first 
+} from 'rxjs/operators';
+
 import { environment } from '../environments/environment';
 
 import { MarvelResponse } from './interfaces';
@@ -51,6 +63,19 @@ export class MarvelService {
       apikey: this.publicKey
     }
 
+    return this.http.get<MarvelResponse>(requestUrl);    
+  }
+
+  filterCharacters(limit : number = 8, prefix : string = null, offset: number = 0): Observable<MarvelResponse> {
+    let ts = this.getTimeStamp();
+    let hash = this.getHash(ts);
+    
+    let requestUrl = `
+      ${this.marvelCharacterUrl}?limit=${limit}&offset=${offset}&ts=${ts}&apikey=${this.publicKey}&hash=${hash}`;
+    if (prefix) {
+      requestUrl += `&nameStartsWith=${prefix}`;
+    }
+    console.log('requestUrl', requestUrl);
     return this.http.get<MarvelResponse>(requestUrl);    
   }
 

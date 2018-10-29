@@ -1,6 +1,6 @@
 <header>
   <div class="container h-full flex items-center">
-    <img src="/assets/img/marvel-logo.svg">
+    <a href="/"><img src="/assets/img/marvel-logo.svg"></a>
     <div class="hero-icons ml-auto">
       <img (click)="refreshCharacters(prefix='Captain America')" src="/assets/img/captain-america.svg">
       <img (click)="refreshCharacters(prefix='Iron Man')" src="/assets/img/iron-man.svg">
@@ -18,12 +18,17 @@
 <nav>
   <div class="container h-full flex items-center space-between">
     <div id="search" class="flex">
-      <div>Search</div>
       <input type="text" 
+        placeholder="Search"
         [value]="prefix"
         [(ngModel)]="prefix"
         (keydown)="searchOnEnterBtn($event)">
       <button (click)="searchFilter(prefix)">Go</button>
+      <input type="checkbox"
+        [(ngModel)]="imgFilter"
+        [checked]="imgFilter"
+        (change)="photoFilter($event)">
+      <span>photos only</span>
     </div>
 
     <div class="flex ml-auto letter-filter">

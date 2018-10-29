@@ -93,7 +93,7 @@ app-root {
   animation: rotate 2s linear infinite;
   z-index: 2;
   position: absolute;
-  top: 30%;
+  top: 50%;
   left: 50%;
   margin: -25px 0 0 -25px;
   width: 80px;
@@ -133,6 +133,11 @@ header {
     margin-left: 1rem;
     height: 34px;
     cursor: pointer;
+    transition: all .2s ease-in-out;
+    
+    &:hover {
+      transform: scale(1.1);        
+    }
 
     @include break770 {
       height: 30px;
@@ -166,7 +171,7 @@ nav {
     input[type=text] {
       color: #b7b7b7;
       height: 30px;
-      margin: 0 .75rem;
+      margin: 0 .75rem 0 0;
       background: #2E3438;
       border: 1px solid #1b1b1b; 
       width: 250px;
@@ -181,6 +186,29 @@ nav {
       height: 26px;
       width: 26px;
     }
+
+    input[type=checkbox] {
+      color: #b7b7b7;
+      background: #2E3438;
+      border: 1px solid #1b1b1b; 
+      margin: 0 .2rem 0 .7rem;
+    }
+
+    span {
+      color: #b7b7b7;
+      text-transform: lowercase;
+      font-size: .8rem;
+    }
+
+    .search-filter-results {
+      background: #eeeeee;
+      color: #212121;
+      width: 250px;
+      z-index: 1;
+      position: relative;
+      top: 26px;
+      right: 288px;
+    }
   }
 
   .letter-filter {
@@ -193,21 +221,32 @@ nav {
     }
   }
   
-
   a:hover {
     text-decoration: underline;
   }
 }
 
 .content {
-  background: color(dark-back) url('/assets/img/background.svg') center 80px no-repeat;
+  background: color(dark-back) url('/assets/img/background.svg') center 25px no-repeat;
   background-size: 550px;
+
+  @include break580 {
+    background-size: 450px;
+  }
+
+  @include break400 {
+    background-size: 350px;
+  }
 
   .paging {
     color: color(white);
     cursor: pointer;
     text-transform: uppercase;
     font-size: .9rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .wrapper {
