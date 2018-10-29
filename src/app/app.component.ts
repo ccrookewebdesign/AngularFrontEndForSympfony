@@ -79,6 +79,7 @@ export class AppComponent {
   }
 
   photoFilter() {
+    this.offset = 0;
     this.refreshCharacters(this.prefix, this.offset);
   }
   
