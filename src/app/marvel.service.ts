@@ -16,7 +16,7 @@ import {
 
 import { environment } from '../environments/environment';
 
-import { MarvelResponse } from './interfaces';
+import { MarvelResponse, Character } from './interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -66,28 +66,18 @@ export class MarvelService {
     return this.http.get<MarvelResponse>(requestUrl);    
   }
 
-  filterCharacters(limit : number = 8, prefix : string = null, offset: number = 0): Observable<MarvelResponse> {
-    let ts = this.getTimeStamp();
-    let hash = this.getHash(ts);
-    
-    let requestUrl = `
-      ${this.marvelCharacterUrl}?limit=${limit}&offset=${offset}&ts=${ts}&apikey=${this.publicKey}&hash=${hash}`;
-    if (prefix) {
-      requestUrl += `&nameStartsWith=${prefix}`;
+  /* loadCharacters(): Observable<Character[]> {
+    let tempCharacters: Character[];
+    let tempArray;
+    let startRow = 0;
+    for(let i = 0; i <= 15; i++) {
+      tempArray = this.getCharacters(100, null, startRow);
+      tempCharacters = [...tempCharacters, ...tempArray.data.results];
+       
+      startRow += 100;      
     }
-    console.log('requestUrl', requestUrl);
-    return this.http.get<MarvelResponse>(requestUrl);    
-  }
-
-  /* getCharacter(characterId: number) {
-    let timeStamp = this.getTimeStamp();
-    let hash = this.getHash(timeStamp);
-    console.log('characterId', characterId);
-    let requestUrl = `
-    ${this.marvelCharacterUrl}/${characterId}?ts=${timeStamp}&apikey=${this.publicKey}&hash=${hash}`;
-    console.log('requestUrl', requestUrl);    
     
-    return this.http.get(requestUrl);    
+    return tempCharacters;
   } */
 
 }

@@ -4,7 +4,9 @@ $colors: (
   marvel-red: #ED1D24,
   white: #eeeeee,
   dark-back: #171717,
-  black: #212121
+  black: color(black),
+  gray: #8C8C8C,
+  footer-gray: #626262
 );
 
 @function color($color-name) {
@@ -127,24 +129,34 @@ header {
   
   img {
     height: 65px;
+    cursor: pointer;
   }
 
-  .hero-icons img {
-    margin-left: 1rem;
-    height: 34px;
-    cursor: pointer;
-    transition: all .2s ease-in-out;
+  .hero-icons {
+    img {
+      margin-left: 1rem;
+      height: 34px;
+      transition: all .2s ease-in-out;
+      
+      &:hover {
+        transform: scale(1.1);        
+      }
+
+      @include break770 {
+        height: 30px;
+      }
+
+      @include break770 {
+        height: 24px;
+      }
+    }
     
-    &:hover {
-      transform: scale(1.1);        
+    @include break1180 {
+      padding-right: 1rem;
     }
 
-    @include break770 {
-      height: 30px;
-    }
-
-    @include break770 {
-      height: 24px;
+    @include break980 {
+      padding-right: .25rem;
     }
 
     @include break600 {
@@ -156,7 +168,6 @@ header {
 nav {
   height: 40px;
   background-color: #22262A;
-  text-transform: uppercase;
   align-items: center;
   color: color(white);
 
@@ -188,21 +199,19 @@ nav {
     }
 
     input[type=checkbox] {
-      color: #b7b7b7;
-      background: #2E3438;
-      border: 1px solid #1b1b1b; 
       margin: 0 .2rem 0 .7rem;
     }
 
     span {
-      color: #b7b7b7;
+      color: color(gray);
       text-transform: lowercase;
       font-size: .8rem;
+      cursor: pointer;
     }
 
     .search-filter-results {
-      background: #eeeeee;
-      color: #212121;
+      background: color(white);
+      color: color(black);
       width: 250px;
       z-index: 1;
       position: relative;
@@ -213,17 +222,23 @@ nav {
 
   .letter-filter {
     a {
+      text-transform: uppercase;
+      color: color(gray);
       margin-left: .5rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    @include break1180 {
+      padding-right: 1rem;
     }
 
     @include break980 {
       display: none;
     }
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
+  }  
 }
 
 .content {
@@ -238,14 +253,24 @@ nav {
     background-size: 350px;
   }
 
-  .paging {
-    color: color(white);
-    cursor: pointer;
-    text-transform: uppercase;
-    font-size: .9rem;
+  .no-records {
+    color: color(gray);
+  }
 
-    &:hover {
-      text-decoration: underline;
+  .paging-container {
+    .paging {
+      color: color(gray);
+      cursor: pointer;
+      text-transform: uppercase;
+      font-size: .9rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    @include break1180 {
+      padding: 0 1rem 0 .25rem;
     }
   }
 
@@ -276,7 +301,7 @@ nav {
   }
   
   .character {
-    color: #212121;
+    color: color(black);
     height: 350px;
     width: 175px;
     background: no-repeat #fff;
@@ -330,9 +355,9 @@ nav {
 }
 
 footer {
-  color: color(white);
+  color: color(footer-gray);
   background-color: color(dark-back);
-  font-size: .9rem;
+  font-size: .8rem;
   height: 30px;
 
   a {
@@ -340,7 +365,7 @@ footer {
   }
 
   .credits {
-    a { color: color(white);}
+    a { color: color(footer-gray); }
   }
 
   @include break900 {
