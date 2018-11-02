@@ -20,6 +20,9 @@ $break770: 770px;
 $break660: 660px;
 $break600: 600px;
 $break580: 580px;
+$break550: 550px;
+$break500: 500px;
+$break460: 460px;
 $break400: 400px;
 
 @mixin break1180 {
@@ -60,6 +63,24 @@ $break400: 400px;
 
 @mixin break580 {
   @media (max-width: #{$break580}) {
+    @content;
+  }
+}
+
+@mixin break550 {
+  @media (max-width: #{$break550}) {
+    @content;
+  }
+}
+
+@mixin break500 {
+  @media (max-width: #{$break500}) {
+    @content;
+  }
+}
+
+@mixin break460 {
+  @media (max-width: #{$break460}) {
     @content;
   }
 }
@@ -127,21 +148,49 @@ header {
   background-color: color(marvel-red);
   color: color(white);
   
-  img {
-    height: 65px;
-    cursor: pointer;
-  }
+  .logo {
+    img {
+      height: 65px;
+      cursor: pointer;
+    }
+  
+    .tag {
+      font-family: 'Special Elite', cursive;      
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      /* font-weight: 300; */
+    }
 
+    @include break900 {
+      img {
+        height: 45px;
+      }
+
+      .tag {
+        font-size: .85rem;
+      }
+      flex-direction: column;
+    }    
+
+    @include break460 {
+      .tag {
+        font-size: .8rem;
+      }
+    }
+  }
+  
   .hero-icons {
     img {
       margin-left: 1rem;
       height: 34px;
       transition: all .2s ease-in-out;
-      
+      cursor: pointer;
+
       &:hover {
         transform: scale(1.1);        
       }
 
+      
       @include break770 {
         height: 30px;
       }
@@ -159,8 +208,28 @@ header {
       padding-right: .25rem;
     }
 
-    @include break600 {
-      display: none;
+    @include break580 {
+      .hide580 {
+        display: none;
+      }
+    }
+
+    @include break550 {
+      .hide550 {
+        display: none;
+      }
+    }
+
+    @include break500 {
+      .hide500 {
+        display: none;
+      }
+    }
+
+    @include break460 {
+      .hide460 {
+        display: none;
+      }
     }
   }
 }
@@ -200,6 +269,7 @@ nav {
 
     input[type=checkbox] {
       margin: 0 .2rem 0 .7rem;
+      cursor: pointer;
     }
 
     span {

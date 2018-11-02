@@ -54,15 +54,6 @@ export class MarvelService {
       requestUrl += `&nameStartsWith=${prefix}`;
     }
 
-    let params = {
-      limit,
-      offset,
-      ts,
-      hash,
-      prefix,
-      apikey: this.publicKey
-    }
-
     return this.http.get<MarvelResponse>(requestUrl);    
   }
 

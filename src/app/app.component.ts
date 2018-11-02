@@ -2,11 +2,20 @@ import { Component } from '@angular/core';
 
 import { environment } from '../environments/environment';
 
+import { trigger, transition, animate, keyframes } from '@angular/animations';
+import { slideOutLeft, slideOutRight } from './router.transition';
+
 import { MarvelService } from './marvel.service';
 import { Character} from './interfaces';
 
 @Component({
   selector: 'app-root',
+  animations: [
+    trigger('cardAnimator', [
+      transition('* => slideOutLeft', animate(300, keyframes(slideOutLeft))),
+      transition('* => slideOutRight', animate(300, keyframes(slideOutRight)))
+    ])
+  ],
   templateUrl: './app.component.html'
 })
 export class AppComponent {
@@ -23,12 +32,17 @@ export class AppComponent {
   prefix: string = '';
   imgFilter: boolean = false;
   showSpinner: boolean = false;
+  animationState: string;
+  callLimitReached: boolean = false;
     
   constructor(private marvel: MarvelService) {}
 
-  ngOnInit() {
-    this.getCharactersFromService();
-    this.loadCharacters();
+  async ngOnInit() {
+    
+    await this.getCharactersFromService();
+    if(!this.callLimitReached) {
+      this.loadCharacters();
+    }
   }
 
   refreshCharacters(prefix = null, offset = 0) {
@@ -36,8 +50,11 @@ export class AppComponent {
       if (!this.allCharactersSorted) this.sortCharacters();
       this.getCharacters(prefix, offset);
     } else {
-      this.getCharactersFromService(prefix, offset);
+      if(!this.callLimitReached) {
+        this.getCharactersFromService(prefix, offset);
+      }      
     }
+    console.log('characters', this.characters);
   }
 
   getCharacters(prefix = null, offset = 0) {
@@ -48,6 +65,7 @@ export class AppComponent {
     if(prefix !== null) {
       tmpArray = newCharacterArray.filter(
         character => character.name.toLowerCase().startsWith(prefix.toLowerCase())
+        //character => character.name.toLowerCase().includes(prefix.toLowerCase())
       );
       newCharacterArray = tmpArray;
     }
@@ -65,25 +83,37 @@ export class AppComponent {
   getCharactersFromService(prefix = null, offset = 0) {
     this.showSpinner = true;
     this.marvel.getCharacters(this.limit, prefix, offset).subscribe(data => {
-      this.characters = data.data.results;
+      this.characters = data.data.results;      
       if(this.imgFilter) {
         this.characters = this.characters.filter(character => !character.thumbnail.path.includes('image_not_available'));
       }
       this.totalCharacters = data.data.total;
       this.showSpinner = false;
+    },
+    err => {
+      this.callLimitReached = true;
+      this.showSpinner = false;
+      console.log('err', err);
     });
   }
   
   loadCharacters() {
     let startRow = 0;
-    
-    for(let i = 0; i <= 15; i++) {
-      this.marvel.getCharacters(100, null, startRow).subscribe(data => {
-        console.log('data', data);
-        this.allCharacters = [...this.allCharacters, ...data.data.results];
-      });
-      startRow += 100;      
-    }    
+    if(!this.callLimitReached) {
+      for(let i = 0; i <= 14; i++) {
+        if(!this.callLimitReached) {
+          this.marvel.getCharacters(100, null, startRow).subscribe(data => {
+            console.log('data', data);
+            this.allCharacters = [...this.allCharacters, ...data.data.results];
+          },
+          err => {
+            this.callLimitReached = true;
+            console.log('err', err);
+          });
+          startRow += 100;      
+        }
+      }    
+    }
   }
 
   sortCharacters() {
@@ -93,15 +123,38 @@ export class AppComponent {
     this.allCharactersSorted = true;
   }
 
-  minusOffset(offset: number) {
+  /* startAnimation(state) {
+    if(!this.animationState) {
+      this.animationState = state;
+      if (state === 'slideOutLeft') {
+        console.log('minusOffset');
+        this.plusOffset();
+      } else {
+        console.log('plusOffset');
+        this.minusOffset();
+      }
+    }
+  } */
+
+  resetAnimation() {
+    this.animationState = '';
+  }
+
+  minusOffset(offset: number = this.limit) {
     if(this.offset > 0) {
+      /* if(!this.animationState) {
+        this.animationState = 'slideOutRight';
+      } */
       this.offset -= offset;
       this.refreshCharacters(this.prefix, this.offset);
     }
   }
 
-  plusOffset(offset: number) {
+  plusOffset(offset: number = this.limit) {
     if((this.offset + offset) < this.totalCharacters && this.totalCharacters > this.limit) {
+      /* if(!this.animationState) {
+        this.animationState = 'slideOutLeft';
+      } */
       this.offset += offset;
       this.refreshCharacters(this.prefix, this.offset);
     }    
@@ -132,7 +185,7 @@ export class AppComponent {
   }
   
   goToCharacter(url) {
-    window.location.href = url;
+    window.open(url, '_blank');
   }
 
 }
