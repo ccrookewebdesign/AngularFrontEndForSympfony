@@ -56,19 +56,5 @@ export class MarvelService {
 
     return this.http.get<MarvelResponse>(requestUrl);    
   }
-
-  /* loadCharacters(): Observable<Character[]> {
-    let tempCharacters: Character[];
-    let tempArray;
-    let startRow = 0;
-    for(let i = 0; i <= 15; i++) {
-      tempArray = this.getCharacters(100, null, startRow);
-      tempCharacters = [...tempCharacters, ...tempArray.data.results];
-       
-      startRow += 100;      
-    }
-    
-    return tempCharacters;
-  } */
-
+  
 }
