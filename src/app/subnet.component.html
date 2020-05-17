@@ -1,5 +1,18 @@
-<div class="flex items-center mb-2">
-  <div class="icon-container flex items-center"><i class="fas fa-plus"></i></div>
-  <div>{{ subnet.subnet }}</div>
-  <!-- <div class="icon-container flex items-center"><i class="fas fa-minus"></i></div> -->
+<div class="flex items-start mb-2">
+  <div class="icon-container flex items-center mr-2">
+    <i class="fas cursor-pointer hover:text-gray-700" 
+      [ngClass]="expanded ? 'fa-minus' : 'fa-plus'"
+      (click)="toggleExpanded()"></i>
+  </div>
+  <div>
+    <span class="font-bold cursor-pointer hover:text-gray-700" (click)="toggleExpanded()">{{ subnet.subnet }}</span>
+    <div [ngClass]="expanded ? 'block' : 'hidden'" class="ml-2">
+        <div *ngFor="let ip of subnet.ips" 
+          [ngClass]="(ip.id === lastSelectedIp) ? 'font-bold' : 'font-normal'"
+          class="cursor-pointer hover:text-gray-700"
+          (click)="ipSelected(ip)">
+          - {{ ip.ip }}
+        </div>
+      </div>
+  </div>
 </div>

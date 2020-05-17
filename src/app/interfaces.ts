@@ -7,6 +7,7 @@ export interface Subnet {
 
 export interface Ip {
   id: number;
+  subnet_id: number;
   ip: string;
   address_tag: string;
 }

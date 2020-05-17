@@ -1,16 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Subnet } from './interfaces';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Subnet, Ip } from './interfaces';
 
 @Component({
   selector: 'app-subnet',
-  templateUrl: './subnet.component.html',
-  styleUrls: ['./subnet.component.scss']
+  templateUrl: './subnet.component.html'  
 })
-export class SubnetComponent implements OnInit {
+export class SubnetComponent {
+  expanded: boolean = false;
+  selectedIp: Ip = {
+    id: 0,
+    subnet_id: 0,
+    ip: '',
+    address_tag: ''
+  };
+
   @Input() subnet: Subnet;
+  @Input() lastSelectedIp: number;
+  @Output() notify:EventEmitter<Ip> = new EventEmitter<Ip>();
   constructor() { }
 
-  ngOnInit() {
+  toggleExpanded(){
+    this.expanded = !this.expanded;
   }
 
+  // when user selectes an Ip, alert the parent component
+  ipSelected(ip: Ip){
+    this.selectedIp = ip;
+    this.notify.emit(ip);
+  }
 }

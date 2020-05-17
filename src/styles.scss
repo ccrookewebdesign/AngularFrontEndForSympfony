@@ -1,5 +1,5 @@
 $colors: (
-  white: #eeeeee,
+  white: #ffffff,
   black: #171717,
 );
 
@@ -12,6 +12,7 @@ $colors: (
   font-weight: 300;
   text-decoration: none;
   outline: none;
+  color: color(black);
 }
 
 html, body, app-root {
@@ -29,28 +30,12 @@ app-root {
 }
 
 .icon-container {
-  background-color: #ffffff;
+  background-color: color(white);
   width: 20px;
   height: 20px;
   padding: .15rem;
-  border: 1px solid #000000;
+  border: 1px solid color(black);
 }
-
-.spinner {
-  animation: rotate 2s linear infinite;
-  z-index: 2;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -25px 0 0 -25px;
-  width: 80px;
-  height: 80px;
-    
-  & .path {
-    animation: dash 1.5s ease-in-out infinite;
-  }  
-}
-
 
 .container {
   max-width: 1140px;
