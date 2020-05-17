@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "marvel": {
+    "blueally": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -61,18 +61,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "marvel:build"
+            "browserTarget": "blueally:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "marvel:build:production"
+              "browserTarget": "blueally:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "marvel:build"
+            "browserTarget": "blueally:build"
           }
         },
         "test": {
@@ -106,7 +106,7 @@
         }
       }
     },
-    "marvel-e2e": {
+    "blueally-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -115,11 +115,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "marvel:serve"
+            "devServerTarget": "blueally:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "marvel:serve:production"
+              "devServerTarget": "blueally:serve:production"
             }
           }
         },
@@ -135,5 +135,5 @@
       }
     }
   },
-  "defaultProject": "marvel"
+  "defaultProject": "blueally"
 }

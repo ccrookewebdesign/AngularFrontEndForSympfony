@@ -1,10 +1,24 @@
-<header>
+<!-- <div class="container-lg h-full flex items-start p-4">
+  <div class="w-1/2 h-full bg-gray-200 mr-4 p-3">
+    <div class="text-xl font-semibold border-b border-black">Subnets</div>
+    
+  </div>
+  <div class="w-1/2 h-full bg-gray-200 ml-4 p-3">selected ip</div>
+</div> -->
+<div class="container-lg h-full flex flex-col-reverse sm:flex-row items-start p-4">
+  <div class="w-full sm:w-1/2 h-full bg-gray-200 md:mr-4 p-3">
+    <div class="text-xl font-semibold border-b border-black mb-4">Subnets</div>
+    <app-subnet *ngFor="let subnet of subnets" [subnet]='subnet'></app-subnet>      
+  </div>
+  <div class="w-full sm:w-1/2 mb-4 sm:mb-0 sm:h-full bg-gray-200 sm:ml-4 p-3">selected ip</div>
+</div>
+<!-- <header>
   <div class="container h-full flex items-center">
     <div class="logo flex items-center">
       <img (click)="clearFilter()" src="/assets/img/marvel-logo.svg">
       <div class="tag">Character Database</div>
     </div>
-    <div class="hero-icons ml-auto">
+    <div class="hero-icons ml-auto flex">
       <img (click)="refreshCharacters(prefix='Captain America')" src="/assets/img/captain-america.svg">
       <img (click)="refreshCharacters(prefix='Iron Man')" src="/assets/img/iron-man.svg">
       <img (click)="refreshCharacters(prefix='Spider-Man')" src="/assets/img/spiderman.svg">
@@ -29,7 +43,7 @@
       <input type="checkbox"
         [(ngModel)]="imgFilter"
         (change)="photoFilter($event)">
-      <span (click)="imgFilter=!imgFilter;photoFilter($event)">photos only</span>
+      <span (click)="imgFilter=!imgFilter;photoFilter($event)">hide characters w.out photos</span>
     </div>
 
     <div class="flex ml-auto letter-filter">
@@ -113,4 +127,4 @@
 </footer>
 <div class="spinner" *ngIf="showSpinner">
   <img class="path" src="/assets/img/spiderman-web-spinner.svg">
-</div>
+</div> -->

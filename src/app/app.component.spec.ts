@@ -1,11 +1,11 @@
-describe('marvel characters', () => {
+describe('blueally subnets', () => {
   let sut;
 
   beforeEach(() => {
     sut = {};
   });
 
-  it('should load the characters', () => {
+  it('should load the subnets', () => {
     sut.a = false;
 
     sut.a = true;

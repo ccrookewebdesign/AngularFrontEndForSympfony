@@ -1,26 +1,20 @@
-export interface MarvelResponse {
-  code : number;
-  status: string;
-  attributionHTML: string;
-  data: MarvelData;
-}
-
-export interface MarvelData {
-  offset: number;
-  limit: number;
-  total: number;
-  count: number;
-  results: [];
-}
-
-export interface Character {
+export interface Subnet {
   id: number;
-  name: string;
-  description: string;
-  thumbnail: Thumbnail;
+  subnet: string;
+  cidr: number;
+  ips: Ip[];
 }
 
-export interface Thumbnail {
-  path: string;
-  extension: string;
+export interface Ip {
+  id: number;
+  ip: string;
+  address_tag: string;
+}
+
+export interface SubnetCollection {
+  subnets: Subnet[];
+}
+
+export interface SubnetResponse {
+  subnets: Subnet[];
 }
