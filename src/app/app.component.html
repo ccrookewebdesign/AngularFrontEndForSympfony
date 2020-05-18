@@ -1,7 +1,11 @@
-<div class="container-lg h-full flex flex-col-reverse sm:flex-row items-start p-4">
+<div class="w-full lg:w-5/6 lg:mx-auto h-full flex flex-col-reverse sm:flex-row items-start p-4">
   <!-- Subnets container -->
   <div class="w-full sm:w-1/2 h-full bg-gray-200 md:mr-4 p-3 overflow-auto">
     <div class="text-xl font-semibold border-b border-black mb-4">Subnets</div>
+
+    <div *ngIf="loading">
+      Loading...
+    </div>
     <!-- subnet child component(s) -->
     <app-subnet *ngFor="let subnet of subnets" 
       [subnet]='subnet'

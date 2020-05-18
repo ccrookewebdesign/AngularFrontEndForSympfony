@@ -7,6 +7,7 @@ import { Subnet, Ip } from './interfaces';
   templateUrl: './app.component.html'
 })
 export class AppComponent {
+  loading: boolean = true;
   subnets: Subnet[] = [];
   selectedIp: Ip = {id: 0, subnet_id: 0, ip: '', address_tag: ''};
   selectedIpSubnet: string = '';
@@ -17,6 +18,7 @@ export class AppComponent {
     // retrieve subnets from database
     this.subnetService.getSubnets().subscribe(data => {
       this.subnets = data.subnets;
+      this.loading = false;
     });
   }
 

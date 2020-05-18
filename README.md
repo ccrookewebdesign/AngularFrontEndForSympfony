@@ -1,5 +1,19 @@
 # BlueAlly
 
+## Angular Front End Setup
+
+**Run these two commands in project directory:**
+
+* npm install
+* ng serve
+
+Open in browser: [http://localhost:4200/](http://localhost:4200/)
+
+*Did not implement token authentication.*
+
+Had to add the following chrome extension and run fromthe front end browser to bypass cors issues
+https://chrome.google.com/webstore/detail/moesif-orign-cors-changer/digfbfaphojjndkpccljibejjbppifbc/related?hl=en-US
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.3.
 
 ## Development server
